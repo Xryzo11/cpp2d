@@ -1,105 +1,200 @@
 #include <iostream>
 #include <stdlib.h>
+#include <ctime>
+#include <cstdlib>
+#include <conio.h>
+#include<algorithm>
 
 using namespace std;
 int main(int argc, char** argv) {
 	
-	char destination;
-	int x = 1;
-	int y = 1;
-	int height = 9;
-	int width = 9;
-	char board[width][height];
+	//zmienne
+	int destination;
+	int x;
+	int y;
+	int pointX;
+	int pointY;
+	int height;
+	int width;
+	int numberOfPoints;
+	int toCollect;
+	bool diffNotDeclared = true;
+	char key_press;
 	string again;
-
-	//szkic planszy	
-	for(int i = 0; i < height; i++) 
-	{
-		for(int j = 0; j < width; j++)
-		{
-		board[i][j] = 'X';
-		board[y][x] = 'O';
-		cout<<board[i][j];
-		}		  
-		cout<<"\n";	
-	}
+	string diff;
 	
+	//poziomy trudnosci
 	do
 	{
-		cout<<"(w/s/a/d)\n";
-		cin>>destination;
+		system("CLS");
+		x = 1;
+		y = 1;
+		diffNotDeclared = true;
+		do
+		{
+			cout<<"easy/medium/hard\n";
+			cin>>diff;
+			system("CLS");
+			
+			if(diff=="easy")
+			{
+				height = 5;
+				width = 5;
+				diffNotDeclared = false;
+				numberOfPoints = 3;
+			}
+			else if(diff=="medium")
+			{
+				height = 9;
+				width = 9;
+				diffNotDeclared = false;
+				numberOfPoints = 7;
+			}
+			else if(diff=="hard")
+			{
+				height = 15;
+				width = 15;
+				diffNotDeclared = false;
+				numberOfPoints = 15;
+			}	
+			toCollect = numberOfPoints;
+		}while(diffNotDeclared==true);
 		
-		//system poruszania			
-			if(destination=='a') //w lewo
-			{
-				board[y][x] = 'X';
-				x-=1;
-				board[y][x] = 'O';
-			}
-			else if(destination=='d') //w prawo
-			{
-				board[y][x] = 'X';
-				x+=1;
-				board[y][x] = 'O';
-			}
-			else if(destination=='w') //w gore
-			{
-				board[y][x] = 'X';
-				y-=1;
-				board[y][x] = 'O';
-			}
-			else if(destination=='s') //w dol
-			{
-				board[y][x] = 'X';
-				y+=1;
-				board[y][x] = 'O';
-			}
-	
-		if(x>width-1)
-		{
-			board[y][x] = 'X';
-			x--;
-			board[y][x] = 'O';
-		}
-		else if(x<0)
-		{
-			board[y][x] = 'X';
-			x++;	
-			board[y][x] = 'O';
-		}
-		else if(y>height-1)
-		{
-			board[y][x] = 'X';
-			y--;
-			board[y][x] = 'O';
-		}
-		else if(y<0)
-		{
-			board[y][x] = 'X';
-			y++;
-			board[y][x] = 'O';
-		}
-	
-		//aktualizowanie planszy
+		system("CLS");
 		
-		system ("CLS");
-		
+	    char board[width][height];   
+	    int n = sizeof(board) / sizeof(board[0][0]);
+				
+		//szkic planszy	
 		for(int i = 0; i < height; i++) 
 		{
 			for(int j = 0; j < width; j++)
 			{
+			board[i][j] = 'X';
+			board[1][1] = 'O';
+									
 			cout<<board[i][j];
+			}		  
+			cout<<"\n";	
+		}	
+		
+		//losowanie punktów
+		srand((unsigned) time(0));
+		for(int i = 0; i<numberOfPoints ; i++)
+		{
+			do
+			{
+			pointX = rand() % width;
+			pointY = rand() % height;
+			}while(pointX==1 && pointY==1);
+			
+			board[pointY][pointX] = '$';
+		}	
+					
+		system("CLS");			
+		
+		//ostateczny szkic	
+		cout<<"Do zebrania zostalo: "<<toCollect<<endl;
+				
+		for(int i = 0; i < height; i++) 
+		{
+			for(int j = 0; j < width; j++)
+			{
+			board[1][1] = 'O';								
+			cout<<board[i][j]<<" ";
+			}		  
+			cout<<"\n";	
+		}	
+				
+		//infinite loop poruszania	
+		while(0==0)
+		{
+			cout<<"(w/s/a/d)\n";
+			key_press=getch();
+			destination = key_press;
+			
+			
+			//system poruszania			
+				if(destination==97) //w lewo
+				{
+					board[y][x] = 'X';
+					x-=1;
+					board[y][x] = 'O';
+				}
+				else if(destination==100) //w prawo
+				{
+					board[y][x] = 'X';
+					x+=1;
+					board[y][x] = 'O';
+				}
+				else if(destination==119) //w gore
+				{
+					board[y][x] = 'X';
+					y-=1;
+					board[y][x] = 'O';
+				}
+				else if(destination==115) //w dol
+				{
+					board[y][x] = 'X';
+					y+=1;
+					board[y][x] = 'O';
+				}
+		
+			//border check
+			if(x>width-1)
+			{
+				board[y][x] = 'X';
+				x--;
+				board[y][x] = 'O';
 			}
-			  
-			cout<<"\n";
+			else if(x<0)
+			{
+				board[y][x] = 'X';
+				x++;	
+				board[y][x] = 'O';
+			}
+			else if(y>height-1)
+			{
+				board[y][x] = 'X';
+				y--;
+				board[y][x] = 'O';
+			}
+			else if(y<0)
+			{
+				board[y][x] = 'X';
+				y++;
+				board[y][x] = 'O';
+			}
 		
-		}
+			//aktualizowanie planszy
+			toCollect = count(*board,*board + (width * height),'$');
+					
+			system ("CLS");
+			
+			cout<<"Do zebrania zostalo: "<<toCollect<<endl;
+			for(int i = 0; i < height; i++) 
+			{
+				for(int j = 0; j < width; j++)
+				{
+				cout<<board[i][j]<<" ";
+				}			  
+				cout<<"\n";		
+			}
+			
+			if(toCollect==0)
+			{
+				break;
+			}
+		}//koniec while
 		
-		//kontynuacja gry
-		cout<<"chcesz ruszyc sie ponownie? (y, aby powtorzyc)\n";
+		do
+		{
+		system("CLS");
+		cout<<"WYGRALES\n Chcesz zagrac ponownie? (tak/nie)";
 		cin>>again;
+		}while(again!="tak" && again!="nie");
 		
-	}while(again=="y");
-	
+	}while(again=="tak");
 	return 0;
 }
+//Wykonali Robert Mazurkiewicz, Szymon Łukowski
