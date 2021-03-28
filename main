@@ -8,11 +8,45 @@ int main(int argc, char** argv) {
 	int destination;
 	int x = 1;
 	int y = 1;
-	int height = 9;
-	int width = 9;
-	char board[width][height];
-	string again;
+	int height;
+	int width;
+	bool diffNotDeclared = true;
 	char key_press;
+	string again;
+	string diff;
+	
+	//poziomy trudnosci
+	
+	do
+	{
+		cout<<"easy/medium/hard\n";
+		cin>>diff;
+		system("CLS");
+		
+		if(diff=="easy")
+		{
+			height = 5;
+			width = 5;
+			diffNotDeclared = false;
+		}
+		else if(diff=="medium")
+		{
+			height = 9;
+			width = 9;
+			diffNotDeclared = false;
+		}
+		else if(diff=="hard")
+		{
+			height = 15;
+			width = 15;
+			diffNotDeclared = false;
+		}
+		
+	}while(diffNotDeclared==true);
+	
+	system("CLS");
+	
+    char board[width][height];
     
 	//szkic planszy	
 	for(int i = 0; i < height; i++) 
@@ -20,7 +54,7 @@ int main(int argc, char** argv) {
 		for(int j = 0; j < width; j++)
 		{
 		board[i][j] = 'X';
-		board[y][x] = 'O';
+		board[1][1] = 'O';
 		cout<<board[i][j];
 		}		  
 		cout<<"\n";	
@@ -101,7 +135,6 @@ int main(int argc, char** argv) {
 		
 		}
 	}
-
 	
 	return 0;
 }
