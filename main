@@ -1,17 +1,19 @@
 #include <iostream>
 #include <stdlib.h>
+#include<conio.h>
 
 using namespace std;
 int main(int argc, char** argv) {
 	
-	char destination;
+	int destination;
 	int x = 1;
 	int y = 1;
 	int height = 9;
 	int width = 9;
 	char board[width][height];
 	string again;
-
+	char key_press;
+    
 	//szkic planszy	
 	for(int i = 0; i < height; i++) 
 	{
@@ -24,37 +26,41 @@ int main(int argc, char** argv) {
 		cout<<"\n";	
 	}
 	
-	do
+	//infinite loop poruszania	
+	while(0==0)
 	{
 		cout<<"(w/s/a/d)\n";
-		cin>>destination;
+		key_press=getch();
+		destination = key_press;
+		
 		
 		//system poruszania			
-			if(destination=='a') //w lewo
+			if(destination==97) //w lewo
 			{
 				board[y][x] = 'X';
 				x-=1;
 				board[y][x] = 'O';
 			}
-			else if(destination=='d') //w prawo
+			else if(destination==100) //w prawo
 			{
 				board[y][x] = 'X';
 				x+=1;
 				board[y][x] = 'O';
 			}
-			else if(destination=='w') //w gore
+			else if(destination==119) //w gore
 			{
 				board[y][x] = 'X';
 				y-=1;
 				board[y][x] = 'O';
 			}
-			else if(destination=='s') //w dol
+			else if(destination==115) //w dol
 			{
 				board[y][x] = 'X';
 				y+=1;
 				board[y][x] = 'O';
 			}
 	
+		//border check
 		if(x>width-1)
 		{
 			board[y][x] = 'X';
@@ -94,12 +100,8 @@ int main(int argc, char** argv) {
 			cout<<"\n";
 		
 		}
-		
-		//kontynuacja gry
-		cout<<"chcesz ruszyc sie ponownie? (y, aby powtorzyc)\n";
-		cin>>again;
-		
-	}while(again=="y");
+	}
+
 	
 	return 0;
 }
