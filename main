@@ -3,7 +3,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <conio.h>
-#include<algorithm>
+#include <algorithm>
 
 using namespace std;
 int main(int argc, char** argv) {
@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
 	string again;
 	string diff;
 	
-	//poziomy trudnosci
+	//do...while z powtorzeniem gry
 	do
 	{
 		system("CLS");
@@ -32,6 +32,7 @@ int main(int argc, char** argv) {
 		diffNotDeclared = true;
 		do
 		{
+			//poziomy trudnosci
 			cout<<"easy/medium/hard\n";
 			cin>>diff;
 			system("CLS");
@@ -62,10 +63,10 @@ int main(int argc, char** argv) {
 		
 		system("CLS");
 		
+		//wyznaczenie arraya
 	    char board[width][height];   
-	    int n = sizeof(board) / sizeof(board[0][0]);
 				
-		//szkic planszy	
+		//pierwszy szkic planszy	
 		for(int i = 0; i < height; i++) 
 		{
 			for(int j = 0; j < width; j++)
@@ -78,7 +79,7 @@ int main(int argc, char** argv) {
 			cout<<"\n";	
 		}	
 		
-		//losowanie punktów
+		//losowanie pozycji punktów
 		srand((unsigned) time(0));
 		for(int i = 0; i<numberOfPoints ; i++)
 		{
@@ -93,7 +94,7 @@ int main(int argc, char** argv) {
 					
 		system("CLS");			
 		
-		//ostateczny szkic	
+		//ostateczny szkic po dodaniu punktow	
 		cout<<"Do zebrania zostalo: "<<toCollect<<endl;
 				
 		for(int i = 0; i < height; i++) 
@@ -109,12 +110,13 @@ int main(int argc, char** argv) {
 		//infinite loop poruszania	
 		while(0==0)
 		{
+			//system poruszania
 			cout<<"(w/s/a/d)\n";
 			key_press=getch();
 			destination = key_press;
 			
 			
-			//system poruszania			
+					
 				if(destination==97) //w lewo
 				{
 					board[y][x] = 'X';
@@ -166,8 +168,10 @@ int main(int argc, char** argv) {
 				board[y][x] = 'O';
 			}
 		
-			//aktualizowanie planszy
+			//sprawdzanie pozostalych punktow
 			toCollect = count(*board,*board + (width * height),'$');
+			
+			//aktualizowanie planszy
 					
 			system ("CLS");
 			
@@ -181,12 +185,15 @@ int main(int argc, char** argv) {
 				cout<<"\n";		
 			}
 			
+			//koniec gry
 			if(toCollect==0)
 			{
 				break;
 			}
+			
 		}//koniec while
 		
+		//zapytanie o ponowna rozgrywke
 		do
 		{
 		system("CLS");
@@ -197,4 +204,4 @@ int main(int argc, char** argv) {
 	}while(again=="tak");
 	return 0;
 }
-//Wykonali Robert Mazurkiewicz, Szymon Łukowski
+//Wykonali Robert Mazurkiewicz, Szymon Łukowski, Oktawian Pakulski
